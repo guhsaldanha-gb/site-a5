@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termos de Uso | A5 Certificação Digital LTDA</title>
+  <meta name="description" content="Termos e condições gerais de uso e intermediação de certificados digitais da A5 Certificação Digital LTDA.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: { brand: { 500: '#14b8a6', 600: '#0d9488' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-900 text-slate-200 font-sans antialiased">
+
+  <header class="border-b border-slate-800 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md">
+    <div class="max-w-4xl mx-auto px-4 h-20 flex items-center justify-between">
+      <a href="index.html" class="text-lg font-bold text-white">A5 Certificação Digital</a>
+      <a href="index.html" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300">← Voltar ao Início</a>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-12 sm:py-16 space-y-8 text-sm leading-relaxed text-slate-300">
+    
+    <div class="space-y-2 border-b border-slate-800 pb-6">
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Termos de Uso do Serviço</h1>
+      <p class="text-xs text-slate-400">Condições gerais para solicitação, validação e emissão de certificados digitais</p>
+    </div>
+
+    <section class="space-y-3">
+      <h2 class="text-lg font-bold text-white">1. Natureza Jurídica e Declaração de Entidade Privada</h2>
+      <p>
+        A <strong>A5 Certificação Digital LTDA</strong> (CNPJ 46.092.206/0001-90) é uma pessoa jurídica de direito privado, operando como Autoridade de Registro (AR) credenciada no ecossistema da ICP-Brasil. O usuário reconhece que este website pertence a uma entidade comercial privada, não integrando a estrutura orgânica da Receita Federal do Brasil nem de secretarias fazendárias governamentais.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-lg font-bold text-white">2. Processo de Validação de Identidade</h2>
+      <p>
+        A emissão de qualquer certificado digital (e-CPF ou e-CNPJ) depende impreterivelmente da verificação documental e identificação biométrica presencial ou por videoconferência, em estrita obediência às resoluções do ITI e do Comitê Gestor da ICP-Brasil. Caso os documentos apresentados sejam divergentes, inconsistentes ou não atendam aos requisitos regulatórios, a emissão não poderá ser concluída até a devida regularização pelo requerente.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-lg font-bold text-white">3. Responsabilidades do Titular do Certificado</h2>
+      <p>O titular ou representante legal da pessoa jurídica compromete-se a:</p>
+      <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+        <li>Fornecer dados cadastrais estritamente verdadeiros, exatos e atualizados;</li>
+        <li>Guardar com sigilo absoluto suas senhas de acesso (PIN, PUK e senha de revogação);</li>
+        <li>Não compartilhar senhas ou chaves privadas com terceiros, assumindo inteira responsabilidade legal pelas assinaturas efetuadas com seu certificado;</li>
+        <li>Solicitar a revogação imediata do certificado digital caso haja suspeita de perda, roubo ou comprometimento da chave privada.</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-lg font-bold text-white">4. Políticas de Cancelamento e Reembolso</h2>
+      <p>
+        Nos termos do Art. 49 do Código de Defesa do Consumidor (Lei nº 8.078/1990), o cliente poderá solicitar o direito de arrependimento em até 7 (sete) dias corridos a partir da contratação, desde que o certificado digital não tenha sido emitido e validado, hipótese em que o par de chaves criptográficas já terá sido gerado de forma irreversível.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-lg font-bold text-white">5. Foro e Legislação Aplicável</h2>
+      <p>
+        Estes Termos são regidos pelas leis da República Federativa do Brasil e pelas normativas vigentes da ICP-Brasil. Fica eleito o Foro da Comarca de Curitiba, Estado do Paraná, para dirimir quaisquer controvérsias decorrentes deste instrumento.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-800 py-8 text-center text-xs text-slate-500">
+    <p>© 2026 A5 Certificação Digital LTDA (CNPJ 46.092.206/0001-90). Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>
