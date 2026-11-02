@@ -237,14 +237,14 @@
     // Auto-carregador de imagem com fallback elegante
     (function initBannerLoader() {
       const candidatePaths = [
+        'banner.png',
+        './banner.png',
         'banner_2.jfif',
         'banner.jfif',
         'banner_2.JFIF',
         'banner.JFIF',
         'banner_2.jpg',
-        'banner.jpg',
-        'banner_2.png',
-        'banner.png'
+        'banner.jpg'
       ];
 
       function tryLoadBanner(index) {
@@ -281,7 +281,7 @@
           AR Credenciada no ITI • ICP-Brasil
         </span>
         <span class="text-slate-400 hidden lg:inline">|</span>
-        <span class="text-[11px] text-slate-300 hidden lg:inline">Vinculada às ACs Soluti, Safeweb e Qualitycert</span>
+        <span class="text-[11px] text-slate-300 hidden lg:inline">Empresa privada de tecnologia • Sem vínculo estatal</span>
       </div>
       
       <div class="flex items-center gap-4 text-[11px]">
@@ -298,12 +298,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20 gap-4">
         
-        <!-- Logotipo A5 Soluções Digitais -->
+        <!-- Logotipo A5 Soluções Digitais (Monograma corporativo sem escudo/brasão governamental) -->
         <a href="/" class="flex items-center gap-3 group flex-shrink-0">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-900 via-brand-700 to-brand-600 flex items-center justify-center shadow-md shadow-brand-700/20 group-hover:scale-105 transition-transform flex-shrink-0 border border-white/20">
-            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-900 via-brand-700 to-brand-600 flex items-center justify-center shadow-md shadow-brand-700/20 group-hover:scale-105 transition-transform flex-shrink-0 border border-white/20 text-white font-black text-lg font-display tracking-tight">
+            A5
           </div>
           <div>
             <span class="text-xl sm:text-2xl font-black tracking-tight text-brand-950 block leading-tight font-display">
@@ -373,7 +371,7 @@
       
       <div class="w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-300/80 bg-white relative">
         <img id="hero-banner-img"
-             src="banner_2.jfif"
+             src="banner.png"
              alt="Certificado Digital - Sua Identidade Digital no mundo dos negócios - A5 Soluções Digitais"
              class="w-full h-auto object-cover block"
              onerror="this.classList.add('hidden'); document.getElementById('hero-banner-fallback').classList.remove('hidden');">
