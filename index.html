@@ -74,6 +74,21 @@
         linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
     }
 
+    .bg-banner-harmony {
+      background-color: #ede9ee;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(94, 26, 61, 0.08) 0px, transparent 55%),
+        radial-gradient(at 100% 10%, rgba(212, 175, 55, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(94, 26, 61, 0.06) 0px, transparent 60%);
+    }
+
+    .stroke-gold-trail {
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+    }
+    .stroke-wine-trail {
+      border: 1.5px solid rgba(94, 26, 61, 0.35);
+    }
+
     .badge-glow {
       box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
     }
@@ -365,19 +380,45 @@
     </div>
   </header>
 
-  <!-- 1. Banner Inicial (Espaço dedicado em destaque) -->
-  <section class="py-6 sm:py-10 bg-slate-100/60 border-b border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- 1. Banner Inicial com Continuidade de Traços (Dourado e Vinho Padrão) -->
+  <section class="relative py-8 sm:py-14 lg:py-16 overflow-hidden bg-banner-harmony border-b border-slate-200">
+    
+    <!-- Traços de Continuidade do Banner na Seção -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="absolute -top-16 -left-16 w-96 h-96 rounded-full stroke-wine-trail opacity-40 rotate-12"></div>
+      <div class="absolute top-1/4 -right-20 w-[500px] h-[500px] rounded-[60px] stroke-gold-trail opacity-50 -rotate-12"></div>
+      <div class="absolute bottom-6 left-10 w-80 h-80 rounded-[40px] stroke-wine-trail opacity-30 rotate-45"></div>
+      <svg class="absolute inset-0 w-full h-full opacity-40" preserveAspectRatio="none" viewBox="0 0 1440 900">
+        <path d="M-100,200 C300,100 450,450 850,250 C1250,50 1350,300 1600,180" fill="none" stroke="#d4af37" stroke-width="1.8" />
+        <path d="M-50,350 C350,220 500,550 950,380 C1300,200 1400,450 1650,320" fill="none" stroke="#5e1a3d" stroke-width="1.5" />
+        <path d="M100,600 C400,420 600,750 1000,550 C1350,350 1500,600 1700,480" fill="none" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="6 6" />
+      </svg>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
-      <div class="w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-300/80 bg-white relative">
+      <div class="w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-300/80 bg-white relative group">
+        
+        <!-- Riscos Dourados e Vinho (#5e1a3d) Integrados Dentro da Imagem -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden z-10">
+          <svg class="absolute inset-0 w-full h-full opacity-45" preserveAspectRatio="none" viewBox="0 0 1200 500">
+            <!-- Riscos Dourados -->
+            <path d="M-60,180 C240,60 420,380 780,210 C1080,50 1180,260 1320,170" fill="none" stroke="#d4af37" stroke-width="2" />
+            <path d="M120,440 C380,310 520,490 840,360 C1080,250 1200,390 1300,320" fill="none" stroke="#d4af37" stroke-width="1.5" />
+            <!-- Riscos Vinho / Padrão A5 (#5e1a3d) -->
+            <path d="M-40,290 C320,170 480,520 880,340 C1180,180 1280,420 1380,290" fill="none" stroke="#5e1a3d" stroke-width="2.2" />
+            <path d="M-20,90 C220,-10 380,220 720,110 C980,10 1100,160 1250,90" fill="none" stroke="#5e1a3d" stroke-width="1.4" stroke-dasharray="5 5" />
+          </svg>
+        </div>
+
         <img id="hero-banner-img"
              src="banner.png"
              alt="Certificado Digital - Sua Identidade Digital no mundo dos negócios - A5 Soluções Digitais"
-             class="w-full h-auto object-cover block"
+             class="w-full h-auto object-cover block relative z-0"
              onerror="this.classList.add('hidden'); document.getElementById('hero-banner-fallback').classList.remove('hidden');">
 
         <!-- Fallback elegante caso a imagem esteja carregando ou ausente -->
-        <div id="hero-banner-fallback" class="hidden relative p-8 sm:p-14 bg-gradient-to-r from-brand-950 via-brand-800 to-brand-700 text-white min-h-[300px] sm:min-h-[380px] flex items-center">
+        <div id="hero-banner-fallback" class="hidden relative p-8 sm:p-14 bg-gradient-to-r from-brand-950 via-brand-800 to-brand-700 text-white min-h-[300px] sm:min-h-[380px] flex items-center z-0">
           <div class="relative z-10 max-w-xl space-y-4">
             <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-[11px] font-bold">
               ICP-Brasil • AR Credenciada no ITI
