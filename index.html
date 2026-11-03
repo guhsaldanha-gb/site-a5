@@ -66,15 +66,31 @@
     .hidden { display: none !important; }
     body { font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif; }
     
-    /* Gradiente suave que faz a transição perfeita do banner para o branco da página */
-    .bg-hero-blend {
-      background: linear-gradient(180deg, #f4eff3 0%, #f9f6f9 45%, #ffffff 100%);
+    .bg-hero-grid {
+      background-color: #faf8fa;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(94, 26, 61, 0.07) 0px, transparent 50%),
+        radial-gradient(at 100% 10%, rgba(212, 175, 55, 0.1) 0px, transparent 45%),
+        linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
     }
 
-    /* Suavizador descendente para as linhas e formas de fundo */
-    .fade-mask-down {
-      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 45%, rgba(0, 0, 0, 0) 90%);
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 45%, rgba(0, 0, 0, 0) 90%);
+    .bg-banner-harmony {
+      background-color: #ede9ee;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(94, 26, 61, 0.08) 0px, transparent 55%),
+        radial-gradient(at 100% 10%, rgba(212, 175, 55, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(94, 26, 61, 0.06) 0px, transparent 60%);
+    }
+
+    .stroke-gold-trail {
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+    }
+    .stroke-wine-trail {
+      border: 1.5px solid rgba(94, 26, 61, 0.35);
+    }
+
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
     }
   </style>
 
@@ -131,7 +147,7 @@
 
       if (titleElem) titleElem.innerText = productName;
       if (priceElem) {
-        priceElem.innerText = price.toLowerCase().includes('consulta') ? price : 'R\$ ' + price;
+        priceElem.innerText = price.toLowerCase().includes('consulta') ? price : 'R$ ' + price;
       }
 
       if (linkElem) {
@@ -145,6 +161,21 @@
     window.closeModal = function() {
       const modalElem = document.getElementById('order-modal');
       if (modalElem) modalElem.classList.add('hidden');
+    };
+
+    // FAQ Accordion
+    window.toggleFaq = function(id) {
+      const content = document.getElementById('faq-content-' + id);
+      const icon = document.getElementById('faq-icon-' + id);
+      if (!content || !icon) return;
+
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
     };
 
     // Auto-carregador de imagem com fallback elegante
@@ -278,56 +309,42 @@
     </div>
   </header>
 
-  <!-- 1. Banner Inicial com Continuidade Exata do Design e Suavização para Baixo -->
-  <section class="relative pt-6 sm:pt-10 pb-16 sm:pb-24 overflow-hidden bg-hero-blend">
+  <!-- 1. Banner Inicial com Formatos e Linhas Quadradas de Fundo (Totalmente Atrás do Banner) -->
+  <section class="relative py-8 sm:py-14 lg:py-16 overflow-hidden bg-banner-harmony border-b border-slate-200">
     
-    <!-- Linhas e Formas em Continuidade com o Banner (Com Fade Out Vertical Suave) -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0 fade-mask-down">
-      <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1920 820">
+    <!-- Linhas e Formatos Quadrados de Fundo (Posicionados estritamente atrás: z-0) -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      
+      <!-- Molduras Geométricas Quadradas (Vinho e Dourado) -->
+      <div class="absolute -top-12 -left-12 w-80 h-80 rounded-2xl stroke-wine-trail opacity-40 rotate-12"></div>
+      <div class="absolute -top-6 -left-6 w-56 h-56 rounded-xl stroke-gold-trail opacity-50 rotate-12"></div>
+      
+      <div class="absolute top-1/4 -right-16 w-96 h-96 rounded-3xl stroke-gold-trail opacity-45 -rotate-6"></div>
+      <div class="absolute top-1/3 -right-8 w-64 h-64 rounded-2xl stroke-wine-trail opacity-35 -rotate-6"></div>
+
+      <div class="absolute -bottom-14 left-12 w-72 h-72 rounded-2xl stroke-wine-trail opacity-30 rotate-45"></div>
+      <div class="absolute bottom-4 left-24 w-44 h-44 rounded-xl stroke-gold-trail opacity-40 rotate-45"></div>
+
+      <!-- Linhas de Conexão Ortogonais (Traçados em 90 graus e Retângulos Geométricos) -->
+      <svg class="absolute inset-0 w-full h-full opacity-45" preserveAspectRatio="none" viewBox="0 0 1440 900">
+        <!-- Linhas Ortogonais Douradas (#d4af37) -->
+        <path d="M-100,180 L260,180 L260,320 L720,320 L720,160 L1140,160 L1140,360 L1550,360" fill="none" stroke="#d4af37" stroke-width="1.8" />
+        <path d="M120,640 L480,640 L480,480 L940,480 L940,700 L1360,700 L1360,540 L1600,540" fill="none" stroke="#d4af37" stroke-width="1.4" stroke-dasharray="8 6" />
         
-        <!-- === LADO ESQUERDO: Continuidade dos traços que saem do banner === -->
-        
-        <!-- Linha guia superior tracejada dourada com conector -->
-        <path d="M-40,140 L380,140 L450,210 L520,210" fill="none" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="6 6" opacity="0.45" />
-        <circle cx="380" cy="140" r="3" fill="#d4af37" opacity="0.6" />
+        <!-- Linhas Ortogonais Vinho (#5e1a3d) -->
+        <path d="M-60,360 L340,360 L340,540 L820,540 L820,340 L1260,340 L1260,510 L1620,510" fill="none" stroke="#5e1a3d" stroke-width="1.8" />
+        <path d="M-80,240 L190,240 L190,90 L600,90 L600,230 L1040,230 L1040,80 L1500,80" fill="none" stroke="#5e1a3d" stroke-width="1.4" stroke-dasharray="6 6" />
 
-        <!-- Linha reta horizontal média vinho (mesma altura das do banner) -->
-        <path d="M-20,230 L320,230 L390,300 L560,300" fill="none" stroke="#5e1a3d" stroke-width="1.2" opacity="0.3" />
-        
-        <!-- Trilha dourada suave inferior contornando -->
-        <path d="M40,330 L280,330 L350,400 L580,400" fill="none" stroke="#d4af37" stroke-width="1.4" opacity="0.4" />
-        <circle cx="280" cy="330" r="3" fill="#d4af37" opacity="0.5" />
-
-        <!-- Retângulos suaves com cantos arredondados (mesma identidade do banner) -->
-        <rect x="80" y="110" width="260" height="150" rx="18" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.32" transform="rotate(-3 210 185)" />
-        <rect x="140" y="180" width="220" height="130" rx="16" fill="none" stroke="#5e1a3d" stroke-width="1" stroke-dasharray="5 5" opacity="0.25" transform="rotate(4 250 245)" />
-        <rect x="220" y="310" width="180" height="110" rx="14" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.28" transform="rotate(-2 310 365)" />
-
-        <!-- === LADO DIREITO: Continuidade dos traços atrás da pessoa === -->
-        
-        <!-- Linha dourada ascendente que se conecta com as linhas atrás da modelo -->
-        <path d="M1400,240 L1520,240 L1600,160 L1950,160" fill="none" stroke="#d4af37" stroke-width="1.4" opacity="0.45" />
-        <circle cx="1520" cy="240" r="3" fill="#d4af37" opacity="0.6" />
-
-        <!-- Linha vinho tracejada com curva suave e rotação em 45º -->
-        <path d="M1440,320 L1560,320 L1630,390 L1960,390" fill="none" stroke="#5e1a3d" stroke-width="1.2" stroke-dasharray="7 5" opacity="0.35" />
-        <circle cx="1560" cy="320" r="3" fill="#5e1a3d" opacity="0.5" />
-
-        <!-- Linha dourada inferior fina -->
-        <path d="M1380,410 L1500,410 L1580,490 L1940,490" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.3" />
-
-        <!-- Molduras retangulares da direita -->
-        <rect x="1560" y="130" width="280" height="160" rx="20" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.35" transform="rotate(5 1700 210)" />
-        <rect x="1620" y="220" width="240" height="140" rx="18" fill="none" stroke="#5e1a3d" stroke-width="1" opacity="0.22" transform="rotate(-3 1740 290)" />
-        <rect x="1510" y="340" width="200" height="120" rx="14" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="6 6" opacity="0.28" transform="rotate(2 1610 400)" />
-        
-        <!-- Linhas e retângulos de dispersão suave no centro-inferior (já sumindo antes da próxima seção) -->
-        <path d="M500,480 L960,480 L1040,540 L1420,540" fill="none" stroke="#d4af37" stroke-width="0.9" stroke-dasharray="5 5" opacity="0.18" />
-        <rect x="860" y="460" width="200" height="100" rx="14" fill="none" stroke="#5e1a3d" stroke-width="0.8" opacity="0.12" />
+        <!-- Quadrados e Retângulos Geométricos Vazados -->
+        <rect x="200" y="80" width="110" height="110" rx="12" fill="none" stroke="#d4af37" stroke-width="1.6" opacity="0.6" transform="rotate(15 255 135)" />
+        <rect x="1120" y="220" width="150" height="150" rx="16" fill="none" stroke="#5e1a3d" stroke-width="1.6" opacity="0.5" transform="rotate(-12 1195 295)" />
+        <rect x="760" y="60" width="80" height="80" rx="8" fill="none" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="5 5" opacity="0.55" />
+        <rect x="360" y="670" width="130" height="130" rx="14" fill="none" stroke="#5e1a3d" stroke-width="1.4" opacity="0.4" transform="rotate(8 425 735)" />
+        <rect x="1240" y="610" width="90" height="90" rx="10" fill="none" stroke="#d4af37" stroke-width="1.4" opacity="0.45" transform="rotate(20 1285 655)" />
       </svg>
     </div>
 
-    <!-- Container do Banner Central -->
+    <!-- Container do Banner (Fica à Frente das Linhas: z-10) -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
       <div class="w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-300/80 bg-white relative group">
@@ -359,8 +376,8 @@
     </div>
   </section>
 
-  <!-- 2. Introdução curta + Planos das Certificações (Integrado sem corte brusco) -->
-  <section id="produtos" class="pb-16 sm:pb-24 pt-4 relative bg-white border-b border-slate-200">
+  <!-- 2. Introdução curta + Planos das Certificações -->
+  <section id="produtos" class="py-14 sm:py-20 relative bg-white border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto space-y-3 mb-10">
@@ -396,4 +413,632 @@
             </div>
             <div>
               <h3 class="text-xl sm:text-2xl font-bold text-brand-950 font-display">e-CNPJ A1</h3>
-              <p class="text-xs text-slate-500 mt-2 leading-relaxed
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                Instalado diretamente no computador. Essencial para emissão automatizada de NF-e e acesso aos sistemas fiscais corporativos.
+              </p>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-600 pt-3 border-t border-slate-100">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Integração com ERPs e emissores fiscais</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Permite cópia de segurança em múltiplos PCs</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Suporte técnico de instalação incluso</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Valor Total</span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 209<span class="text-xs font-normal text-slate-500">,90</span></span>
+            </div>
+            <button onclick="openModal('e-CNPJ A1 (1 Ano)', '209,90')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-md transition-all active:scale-95 whitespace-nowrap text-center">
+              Contratar
+            </button>
+          </div>
+        </div>
+
+        <!-- e-CPF A1 -->
+        <div class="product-card bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-slate-200 shadow-sm hover:border-brand-700 hover:shadow-xl transition-all" data-category="ecpf">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700">Arquivo Digital (.pfx)</span>
+              <span class="text-xs text-brand-700 font-bold">12 Meses</span>
+            </div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-brand-950 font-display">e-CPF A1</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                Identidade digital para pessoas físicas, autônomos, médicos e advogados com instalação direta no PC.
+              </p>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-600 pt-3 border-t border-slate-100">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Declaração do Imposto de Renda pré-preenchida</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Assinatura eletrônica de contratos particulares</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Acesso total ao portal e-CAC da Receita Federal</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Valor Total</span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 159<span class="text-xs font-normal text-slate-500">,90</span></span>
+            </div>
+            <button onclick="openModal('e-CPF A1 (1 Ano)', '159,90')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
+              Contratar
+            </button>
+          </div>
+        </div>
+
+        <!-- e-CPF Nuvem -->
+        <div class="product-card bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-slate-200 shadow-sm hover:border-brand-700 hover:shadow-xl transition-all" data-category="nuvem ecpf">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-brand-50 text-brand-700">Móvel no Smartphone</span>
+              <span class="text-xs text-brand-700 font-bold">36 Meses</span>
+            </div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-brand-950 font-display">e-CPF em Nuvem</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                Assine contratos de qualquer lugar pelo celular com aplicativo seguro, sem necessidade de tokens físicos ou mídias.
+              </p>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-600 pt-3 border-t border-slate-100">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Acesso pelo celular (iOS e Android)</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Sem risco de perda ou quebra de pen-drive</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Assinatura em lote de contratos em poucos toques</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">A partir de</span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 39<span class="text-xs font-normal text-slate-500">,90</span></span>
+            </div>
+            <button onclick="openModal('e-CPF Nuvem', '39,90')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
+              Contratar
+            </button>
+          </div>
+        </div>
+
+        <!-- e-CNPJ A3 com Token -->
+        <div class="product-card bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-slate-200 shadow-sm hover:border-brand-700 hover:shadow-xl transition-all" data-category="ecnpj">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700">Token Físico Incluso</span>
+              <span class="text-xs text-brand-700 font-bold">36 Meses</span>
+            </div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-brand-950 font-display">e-CNPJ A3 com Token</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                Segurança física para o sócio-administrador, com a chave criptográfica protegida por senha PIN e PUK.
+              </p>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-600 pt-3 border-t border-slate-100">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Token USB criptográfico incluso</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>3 anos consecutivos de validade</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Indicado para maior isolamento de segurança</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Valor</span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 449<span class="text-xs font-normal text-slate-500">,00</span></span>
+            </div>
+            <button onclick="openModal('e-CNPJ A3 com Token (3 Anos)', '449,00')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
+              Contratar
+            </button>
+          </div>
+        </div>
+
+        <!-- e-CPF A3 com Token -->
+        <div class="product-card bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-slate-200 shadow-sm hover:border-brand-700 hover:shadow-xl transition-all" data-category="ecpf">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700">Token USB Incluso</span>
+              <span class="text-xs text-brand-700 font-bold">36 Meses</span>
+            </div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-brand-950 font-display">e-CPF A3 com Token</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                Padrão muito utilizado por advogados e peritos para peticionamento eletrônico em sistemas judiciais.
+              </p>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-600 pt-3 border-t border-slate-100">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Compatível com PJe, Projudi, E-Saj</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Chaves criptográficas isoladas no token</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Validade prolongada de 3 anos</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Valor</span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 349<span class="text-xs font-normal text-slate-500">,00</span></span>
+            </div>
+            <button onclick="openModal('e-CPF A3 com Token (3 Anos)', '349,00')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
+              Contratar
+            </button>
+          </div>
+        </div>
+
+        <!-- Combo ERP -->
+        <div class="product-card bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-slate-200 shadow-sm hover:border-brand-700 hover:shadow-xl transition-all" data-category="ecnpj">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700">Gestão Integrada</span>
+              <span class="text-xs text-brand-700 font-bold">Software Web</span>
+            </div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-brand-950 font-display">Combo Certificado + ERP</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                Emita notas fiscais integradas ao seu e-CNPJ, com controle financeiro simplificado em um só lugar.
+              </p>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-600 pt-3 border-t border-slate-100">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Emissor fiscal rápido de notas (NF-e, NFS-e)</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Controle de faturamento e fluxo de caixa</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Suporte técnico unificado</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Condição Especial</span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">Consulte</span>
+            </div>
+            <button onclick="openModal('Combo Certificado + ERP', 'Sob Consulta')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
+              Saiba Mais
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. Meio de Contato Rápido -->
+  <section id="contato" class="py-12 bg-slate-100 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-6">
+        
+        <div class="space-y-2 text-center lg:text-left">
+          <span class="text-xs font-bold text-brand-700 uppercase tracking-widest block">Canais Oficiais</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-brand-950 font-display">Fale diretamente com nossa equipe</h3>
+          <p class="text-xs sm:text-sm text-slate-500 max-w-xl">
+            Tire suas dúvidas, faça seu agendamento de videoconferência ou solicite auxílio na instalação do seu certificado digital.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href="https://wa.me/5541998279405?text=Ol%C3%A1!%20Gostaria%20de%20atendimento%20para%20emitir%20meu%20certificado." 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition-all active:scale-95">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.35.49 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.102-.115.434-.506.549-.68.116-.173.232-.144.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.203.043.072.043.419-.101.824z"/>
+            </svg>
+            <span>WhatsApp (41) 99827-9405</span>
+          </a>
+
+          <a href="mailto:contato@a5solucoesdigitais.com.br" 
+             class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 font-bold text-xs transition-all">
+            <svg class="w-4 h-4 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <span>contato@a5solucoesdigitais.com.br</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Banner "Nós temos o plano perfeito para você" -->
+  <section class="py-14 sm:py-18 bg-white border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-brand-900 via-brand-800 to-brand-950 text-white relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+        
+        <div class="relative z-10 max-w-xl space-y-3 text-center md:text-left">
+          <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-gold-400 text-xs font-bold border border-white/10">
+            Orientação Personalizada
+          </span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold font-display leading-tight">
+            Nós temos o plano perfeito para você e sua empresa.
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-200 font-light leading-relaxed">
+            Não tem certeza se precisa de um A1 em arquivo, A3 com token USB ou certificado em nuvem no celular? Nossos especialistas analisam o seu sistema e indicam exatamente o que você precisa.
+          </p>
+        </div>
+
+        <div class="relative z-10 flex-shrink-0">
+          <a href="https://wa.me/5541998279405?text=Ol%C3%A1!%20Gostaria%20de%20ajuda%20para%20escolher%20o%20plano%20ideal%20de%20certificado." 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="px-8 py-4 rounded-full bg-gold-500 hover:bg-gold-400 text-brand-950 font-black text-xs sm:text-sm shadow-xl active:scale-95 transition-all whitespace-nowrap block text-center">
+            Descobrir Meu Plano Ideal
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. Espaço para Renovação do Certificado Digital -->
+  <section id="renovacao" class="py-14 sm:py-20 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+        
+        <div class="space-y-4 max-w-xl text-center md:text-left">
+          <span class="inline-block px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+            Renovação Descomplicada
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-950 font-display">
+            Seu certificado digital está prestes a vencer?
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Renove com a <strong>A5 Soluções Digitais</strong> de forma 100% online, sem burocracia e com condições especiais. Mesmo que você tenha emitido em outra certificadora, você pode renovar conosco por videoconferência em poucos minutos.
+          </p>
+          <ul class="text-xs text-slate-600 space-y-2 pt-1">
+            <li class="flex items-center gap-2 justify-center md:justify-start">
+              <span class="text-emerald-600 font-bold">✓</span> Não perca o acesso ao e-CAC, Conectividade Social e emissão de notas
+            </li>
+            <li class="flex items-center gap-2 justify-center md:justify-start">
+              <span class="text-emerald-600 font-bold">✓</span> Validação rápida pelo celular ou computador
+            </li>
+            <li class="flex items-center gap-2 justify-center md:justify-start">
+              <span class="text-emerald-600 font-bold">✓</span> Atendimento humano que acompanha até a instalação
+            </li>
+          </ul>
+        </div>
+
+        <div class="flex-shrink-0 text-center space-y-3">
+          <a href="https://wa.me/5541998279405?text=Ol%C3%A1!%20Meu%20certificado%20est%C3%A1%20vencendo%20e%20gostaria%20de%20renovar%20com%20a%20A5." 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="px-8 py-4 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-brand-700/25 active:scale-95 transition-all block whitespace-nowrap">
+            Renovar Meu Certificado Agora
+          </a>
+          <span class="text-[11px] text-slate-400 block">Processo rápido em cerca de 15 minutos</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. Avaliações de Clientes no Google -->
+  <section id="avaliacoes" class="py-16 sm:py-20 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="space-y-3">
+          <span class="text-xs font-bold text-brand-700 uppercase tracking-widest block">Satisfação Comprovada</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-brand-950 tracking-tight font-display">
+            Avaliações de Clientes no Google
+          </h2>
+          <p class="text-slate-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
+            Veja a experiência real de empresários, contadores e clientes que emitiram seus certificados com a A5 Soluções Digitais.
+          </p>
+        </div>
+
+        <a href="https://share.google/annr0sQoVlgHBOhQ8" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 hover:text-brand-900 transition-all flex-shrink-0">
+          <span>Ver perfil e notas no Google</span>
+          <span class="text-amber-500">★★★★★</span>
+          <svg class="w-4 h-4 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-slate-50 rounded-3xl p-7 flex flex-col justify-between space-y-4 border border-slate-200">
+          <div class="space-y-3">
+            <div class="text-amber-400 text-sm">★★★★★</div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
+              "Fiz a emissão do meu e-CPF por videoconferência em menos de 15 minutos. A equipe da A5 tirou todas as dúvidas e me orientou com paciência no passo a passo da instalação."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-200 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 font-bold text-xs flex items-center justify-center flex-shrink-0">
+              RF
+            </div>
+            <div>
+              <h3 class="text-xs font-bold text-brand-950">Rodrigo Ferreira</h3>
+              <p class="text-[11px] text-slate-500">Cliente e-CPF A1</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 rounded-3xl p-7 flex flex-col justify-between space-y-4 border border-slate-200">
+          <div class="space-y-3">
+            <div class="text-amber-400 text-sm">★★★★★</div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
+              "Precisávamos do e-CNPJ com urgência para emitir notas fiscais e a A5 resolveu no mesmo dia. Suporte técnico rápido, seguro e muito prestativo."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-200 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center flex-shrink-0">
+              MS
+            </div>
+            <div>
+              <h3 class="text-xs font-bold text-brand-950">Marcos Silveira</h3>
+              <p class="text-[11px] text-slate-500">Diretor Comercial • Emissão e-CNPJ</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 rounded-3xl p-7 flex flex-col justify-between space-y-4 border border-slate-200">
+          <div class="space-y-3">
+            <div class="text-amber-400 text-sm">★★★★★</div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
+              "Excelente suporte! A renovação do meu certificado foi muito ágil e o atendimento pelo WhatsApp acompanhou o processo de ponta a ponta sem burocracia."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-200 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center flex-shrink-0">
+              CP
+            </div>
+            <div>
+              <h3 class="text-xs font-bold text-brand-950">Camila Prado</h3>
+              <p class="text-[11px] text-slate-500">Contabilidade & Gestão</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. Quadrante Roxo com Dados da Certificação Digital -->
+  <section id="credenciamento-iti" class="py-14 sm:py-18 bg-brand-950 border-b border-brand-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="rounded-3xl p-8 sm:p-12 bg-gradient-to-tr from-brand-950 via-brand-900 to-brand-800 border border-brand-700/60 shadow-2xl relative">
+        <div class="grid lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-8 space-y-4 text-center lg:text-left">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-gold-400 text-xs font-bold border border-white/10">
+              Cadeia Oficial ICP-Brasil
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold font-display leading-tight">
+              Dados Regulatórios da Certificação Digital
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-light">
+              A <strong>A5 Soluções Digitais</strong> (razão social: <strong>A5 Certificação Digital LTDA</strong> • CNPJ <strong>46.092.206/0001-90</strong>) é uma Autoridade de Registro (AR) credenciada no <strong>Instituto Nacional de Tecnologia da Informação (ITI)</strong> desde 02/06/2023, vinculada operacionalmente às Autoridades Certificadoras <strong>Soluti</strong>, <strong>Safeweb</strong> e <strong>Qualitycert</strong>.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-slate-300">
+              <div class="flex items-center gap-2 justify-center sm:justify-start">
+                <span class="text-gold-400 font-bold">✓</span> Medida Provisória nº 2.200-2/2001
+              </div>
+              <div class="flex items-center gap-2 justify-center sm:justify-start">
+                <span class="text-gold-400 font-bold">✓</span> Lei Geral de Proteção de Dados (LGPD)
+              </div>
+              <div class="flex items-center gap-2 justify-center sm:justify-start">
+                <span class="text-gold-400 font-bold">✓</span> Telefone Cadastrado no ITI: (41) 99511-1992
+              </div>
+              <div class="flex items-center gap-2 justify-center sm:justify-start">
+                <span class="text-gold-400 font-bold">✓</span> Sede: Jardim Botânico, Curitiba - PR
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col items-center lg:items-end justify-center gap-3">
+            <a href="credenciamento.html" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gold-500 hover:bg-gold-400 text-brand-950 font-black text-xs transition-all shadow-md text-center">
+              Consultar Comprovante ITI ↗
+            </a>
+            <a href="https://estrutura.iti.gov.br/" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white underline text-xs transition-colors">
+              Consulta pública na estrutura ITI ↗
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="bg-brand-950 pt-16 pb-24 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-brand-900/80">
+        
+        <!-- Institucional -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-brand-700 flex items-center justify-center text-white font-black text-sm">
+              A5
+            </div>
+            <span class="text-base font-extrabold text-white font-display">A5 Soluções Digitais</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed text-[11.5px]">
+            Autoridade de Registro credenciada no ITI desde 02/06/2023, vinculada às ACs Soluti, Safeweb e Qualitycert.
+          </p>
+          <div class="text-[11px] text-slate-400">
+            Horário: Segunda a Sexta, das 08:30 às 18:00
+          </div>
+        </div>
+
+        <!-- Produtos -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Produtos</h4>
+          <ul class="space-y-2 text-[11.5px]">
+            <li><a href="#produtos" class="hover:text-gold-400 transition-colors">Certificado e-CNPJ A1</a></li>
+            <li><a href="#produtos" class="hover:text-gold-400 transition-colors">Certificado e-CPF A1</a></li>
+            <li><a href="#produtos" class="hover:text-gold-400 transition-colors">Certificado e-CPF em Nuvem</a></li>
+            <li><a href="#produtos" class="hover:text-gold-400 transition-colors">Certificados A3 com Token</a></li>
+            <li><a href="#produtos" class="hover:text-gold-400 transition-colors">Combo Certificado + ERP</a></li>
+          </ul>
+        </div>
+
+        <!-- Atendimento -->
+        <div class="space-y-3 text-[11.5px]">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Atendimento & Suporte</h4>
+          <p class="text-slate-400">WhatsApp: <br><strong class="text-white font-semibold">(41) 99827-9405</strong></p>
+          <p class="text-slate-400">Telefone Cadastrado no ITI: <br><strong class="text-white font-semibold">(41) 99511-1992</strong></p>
+          <p class="text-slate-400">E-mail: <br><strong class="text-white font-semibold">contato@a5solucoesdigitais.com.br</strong></p>
+          <p class="text-slate-400">Endereço: <br>Rua Brasílio Itiberê, 97 - Sala 04 - Jardim Botânico, Curitiba - PR - CEP: 80210-060</p>
+        </div>
+
+        <!-- Informações Legais -->
+        <div class="space-y-3 text-[11.5px]">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Informações Legais</h4>
+          <p class="text-slate-400">
+            Razão Social:<br>
+            <strong class="text-white">A5 Certificação Digital LTDA</strong>
+          </p>
+          <p class="text-slate-400">
+            CNPJ:<br>
+            <strong class="text-white">46.092.206/0001-90</strong>
+          </p>
+          <div class="pt-2 flex flex-col gap-2">
+            <a href="credenciamento.html" class="text-gold-400 hover:text-gold-300 font-semibold underline">Comprovante de Credenciamento ITI ↗</a>
+            <a href="privacidade.html" class="text-slate-400 hover:text-white underline">Política de Privacidade (LGPD)</a>
+            <a href="termos.html" class="text-slate-400 hover:text-white underline">Termos de Uso</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 text-center space-y-3 text-[11px] text-slate-400">
+        <p class="max-w-4xl mx-auto leading-relaxed">
+          <strong>Aviso Regulatório:</strong> A A5 Certificação Digital LTDA (CNPJ 46.092.206/0001-90) é uma empresa privada credenciada como Autoridade de Registro na Infraestrutura de Chaves Públicas Brasileira (ICP-Brasil). Este site não pertence à Receita Federal do Brasil nem a órgãos governamentais.
+        </p>
+        <p class="text-slate-500">
+          © 2026 A5 Soluções Digitais (A5 Certificação Digital LTDA). Todos os direitos reservados.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Modal de Compra e Contratação Rápida -->
+  <div id="order-modal" role="dialog" aria-modal="true" aria-labelledby="modal-product-title" class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4 bg-brand-950/80 backdrop-blur-sm">
+    <div class="relative w-full max-w-md rounded-3xl bg-white p-6 sm:p-8 shadow-2xl text-slate-800">
+      
+      <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700" aria-label="Fechar Modal">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="text-center space-y-2 mb-6">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-brand-50 text-brand-700 border border-brand-200 uppercase tracking-wider">
+          Pedido Rápido
+        </span>
+        <h3 id="modal-product-title" class="text-xl font-bold text-brand-950 font-display">Certificado Digital</h3>
+        <p class="text-xs text-slate-500">Valor do Certificado: <strong id="modal-product-price" class="text-emerald-600 font-bold text-sm">R$ 209,90</strong></p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2.5">
+          <p class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Atendimento comercial direto no WhatsApp com nossa equipe.</span>
+          </p>
+          <p class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Sem solicitação de senhas ou dados bancários aqui.</span>
+          </p>
+          <p class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Agendamento imediato da sua videoconferência.</span>
+          </p>
+        </div>
+
+        <a id="modal-whatsapp-link" 
+           href="https://wa.me/5541998279405?text=Ol%C3%A1!%20Gostaria%20de%20emitir%20meu%20certificado." 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="w-full py-4 px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 active:scale-95 transition-all">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.35.49 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.102-.115.434-.506.549-.68.116-.173.232-.144.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.203.043.072.043.419-.101.824z"/>
+          </svg>
+          <span>Concluir Atendimento no WhatsApp</span>
+        </a>
+
+        <button onclick="closeModal()" class="w-full py-2.5 text-xs text-slate-400 hover:text-slate-700 transition-colors">
+          Voltar ao site
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Botão Flutuante do WhatsApp -->
+  <aside aria-label="Atendimento via WhatsApp" class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[60] flex items-center group">
+    <a href="https://wa.me/5541998279405?text=Ol%C3%A1!%20Gostaria%20de%20tirar%20d%C3%BAvidas%20sobre%20os%20certificados%20digitais." 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       aria-label="Falar com a A5 Soluções Digitais no WhatsApp" 
+       class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-xl shadow-emerald-950/25 hover:scale-105 active:scale-95 transition-all">
+      <svg class="w-6 h-6 sm:w-7 sm:h-7 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.35.49 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.102-.115.434-.506.549-.68.116-.173.232-.144.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.203.043.072.043.419-.101.824z"/>
+      </svg>
+    </a>
+  </aside>
+
+  <script>
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>
