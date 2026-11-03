@@ -178,77 +178,6 @@
       }
     };
 
-    // Seletor Interativo Soluti-style ("Descubra seu Certificado")
-    let quizType = 'pj';
-    let quizUsage = 'nfe';
-
-    window.setQuizType = function(type) {
-      quizType = type;
-      document.getElementById('quiz-btn-pj').className = type === 'pj' 
-        ? 'flex-1 py-3 px-4 rounded-xl text-xs font-bold bg-brand-700 text-white border-2 border-brand-700 shadow-sm transition-all'
-        : 'flex-1 py-3 px-4 rounded-xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-brand-700/40 transition-all';
-      
-      document.getElementById('quiz-btn-pf').className = type === 'pf' 
-        ? 'flex-1 py-3 px-4 rounded-xl text-xs font-bold bg-brand-700 text-white border-2 border-brand-700 shadow-sm transition-all'
-        : 'flex-1 py-3 px-4 rounded-xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-brand-700/40 transition-all';
-      
-      updateQuizResult();
-    };
-
-    window.setQuizUsage = function(usage) {
-      quizUsage = usage;
-      ['nfe', 'irpf', 'nuvem', 'token'].forEach(function(u) {
-        const btn = document.getElementById('quiz-use-' + u);
-        if (!btn) return;
-        if (u === usage) {
-          btn.className = 'py-2.5 px-3 rounded-xl text-xs font-bold bg-brand-50 text-brand-900 border-2 border-brand-700 transition-all';
-        } else {
-          btn.className = 'py-2.5 px-3 rounded-xl text-xs font-semibold bg-slate-50 text-slate-600 border border-slate-200 hover:border-slate-300 transition-all';
-        }
-      });
-      updateQuizResult();
-    };
-
-    function updateQuizResult() {
-      const resTitle = document.getElementById('quiz-result-title');
-      const resDesc = document.getElementById('quiz-result-desc');
-      const resPrice = document.getElementById('quiz-result-price');
-      const resBtn = document.getElementById('quiz-result-btn');
-
-      if (!resTitle || !resDesc || !resPrice || !resBtn) return;
-
-      if (quizType === 'pj') {
-        if (quizUsage === 'token') {
-          resTitle.innerText = 'e-CNPJ A3 com Token (3 Anos)';
-          resDesc.innerText = 'Ideal para empresas e sócios que exigem guarda física em mídia criptográfica USB.';
-          resPrice.innerText = 'R$ 449,00';
-          resBtn.onclick = function() { openModal('e-CNPJ A3 com Token (3 Anos)', '449,00'); };
-        } else {
-          resTitle.innerText = 'e-CNPJ A1 (12 Meses)';
-          resDesc.innerText = 'Instalação direta no computador ou servidor. Perfeito para emissão automatizada de NF-e e integração com ERPs.';
-          resPrice.innerText = 'R$ 209,90';
-          resBtn.onclick = function() { openModal('e-CNPJ A1 (1 Ano)', '209,90'); };
-        }
-      } else {
-        if (quizUsage === 'nuvem') {
-          resTitle.innerText = 'e-CPF em Nuvem (36 Meses)';
-          resDesc.innerText = 'Assine documentos direto no smartphone (iOS e Android), com total mobilidade e sem mídias físicas.';
-          resPrice.innerText = 'A partir de R$ 39,90';
-          resBtn.onclick = function() { openModal('e-CPF Nuvem', '39,90'); };
-        } else if (quizUsage === 'token') {
-          resTitle.innerText = 'e-CPF A3 com Token (3 Anos)';
-          resDesc.innerText = 'Chaves protegidas no token. Essencial para advogados, peritos e acesso aos tribunais (PJe, Projudi).';
-          resPrice.innerText = 'R$ 349,00';
-          resBtn.onclick = function() { openModal('e-CPF A3 com Token (3 Anos)', '349,00'); };
-        } else {
-          resTitle.innerText = 'e-CPF A1 (12 Meses)';
-          resDesc.innerText = 'Formato em arquivo digital (.pfx). Acesso ao e-CAC, declaração pré-preenchida do Imposto de Renda e assinatura digital.';
-          resPrice.innerText = 'R$ 159,90';
-          resBtn.onclick = function() { openModal('e-CPF A1 (1 Ano)', '159,90'); };
-        }
-      }
-    }
-
     // Auto-carregador de imagem com fallback elegante
     (function initBannerLoader() {
       const candidatePaths = [
@@ -288,7 +217,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-700 selection:text-white">
 
-  <!-- Aviso Regulatório Superior (Sem bolinhas piscando) -->
+  <!-- Aviso Regulatório Superior -->
   <aside aria-label="Aviso Regulatório" class="bg-brand-950 text-[11px] py-2 px-4 text-slate-300 relative z-50 border-b border-brand-900/60">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
       <div class="flex items-center gap-2 flex-shrink-0">
@@ -313,7 +242,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20 gap-4">
         
-        <!-- Logotipo A5 Soluções Digitais (Monograma corporativo sem escudo/brasão governamental) -->
+        <!-- Logotipo A5 Soluções Digitais -->
         <a href="/" class="flex items-center gap-3 group flex-shrink-0">
           <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-900 via-brand-700 to-brand-600 flex items-center justify-center shadow-md shadow-brand-700/20 group-hover:scale-105 transition-transform flex-shrink-0 border border-white/20 text-white font-black text-lg font-display tracking-tight">
             A5
@@ -380,44 +309,53 @@
     </div>
   </header>
 
-  <!-- 1. Banner Inicial com Continuidade de Traços (Dourado e Vinho Padrão) -->
+  <!-- 1. Banner Inicial com Formatos e Linhas Quadradas de Fundo (Totalmente Atrás do Banner) -->
   <section class="relative py-8 sm:py-14 lg:py-16 overflow-hidden bg-banner-harmony border-b border-slate-200">
     
-    <!-- Traços de Continuidade do Banner na Seção -->
+    <!-- Linhas e Formatos Quadrados de Fundo (Posicionados estritamente atrás: z-0) -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
-      <div class="absolute -top-16 -left-16 w-96 h-96 rounded-full stroke-wine-trail opacity-40 rotate-12"></div>
-      <div class="absolute top-1/4 -right-20 w-[500px] h-[500px] rounded-[60px] stroke-gold-trail opacity-50 -rotate-12"></div>
-      <div class="absolute bottom-6 left-10 w-80 h-80 rounded-[40px] stroke-wine-trail opacity-30 rotate-45"></div>
-      <svg class="absolute inset-0 w-full h-full opacity-40" preserveAspectRatio="none" viewBox="0 0 1440 900">
-        <path d="M-100,200 C300,100 450,450 850,250 C1250,50 1350,300 1600,180" fill="none" stroke="#d4af37" stroke-width="1.8" />
-        <path d="M-50,350 C350,220 500,550 950,380 C1300,200 1400,450 1650,320" fill="none" stroke="#5e1a3d" stroke-width="1.5" />
-        <path d="M100,600 C400,420 600,750 1000,550 C1350,350 1500,600 1700,480" fill="none" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="6 6" />
+      
+      <!-- Molduras Geométricas Quadradas (Vinho e Dourado) -->
+      <div class="absolute -top-12 -left-12 w-80 h-80 rounded-2xl stroke-wine-trail opacity-40 rotate-12"></div>
+      <div class="absolute -top-6 -left-6 w-56 h-56 rounded-xl stroke-gold-trail opacity-50 rotate-12"></div>
+      
+      <div class="absolute top-1/4 -right-16 w-96 h-96 rounded-3xl stroke-gold-trail opacity-45 -rotate-6"></div>
+      <div class="absolute top-1/3 -right-8 w-64 h-64 rounded-2xl stroke-wine-trail opacity-35 -rotate-6"></div>
+
+      <div class="absolute -bottom-14 left-12 w-72 h-72 rounded-2xl stroke-wine-trail opacity-30 rotate-45"></div>
+      <div class="absolute bottom-4 left-24 w-44 h-44 rounded-xl stroke-gold-trail opacity-40 rotate-45"></div>
+
+      <!-- Linhas de Conexão Ortogonais (Traçados em 90 graus e Retângulos Geométricos) -->
+      <svg class="absolute inset-0 w-full h-full opacity-45" preserveAspectRatio="none" viewBox="0 0 1440 900">
+        <!-- Linhas Ortogonais Douradas (#d4af37) -->
+        <path d="M-100,180 L260,180 L260,320 L720,320 L720,160 L1140,160 L1140,360 L1550,360" fill="none" stroke="#d4af37" stroke-width="1.8" />
+        <path d="M120,640 L480,640 L480,480 L940,480 L940,700 L1360,700 L1360,540 L1600,540" fill="none" stroke="#d4af37" stroke-width="1.4" stroke-dasharray="8 6" />
+        
+        <!-- Linhas Ortogonais Vinho (#5e1a3d) -->
+        <path d="M-60,360 L340,360 L340,540 L820,540 L820,340 L1260,340 L1260,510 L1620,510" fill="none" stroke="#5e1a3d" stroke-width="1.8" />
+        <path d="M-80,240 L190,240 L190,90 L600,90 L600,230 L1040,230 L1040,80 L1500,80" fill="none" stroke="#5e1a3d" stroke-width="1.4" stroke-dasharray="6 6" />
+
+        <!-- Quadrados e Retângulos Geométricos Vazados -->
+        <rect x="200" y="80" width="110" height="110" rx="12" fill="none" stroke="#d4af37" stroke-width="1.6" opacity="0.6" transform="rotate(15 255 135)" />
+        <rect x="1120" y="220" width="150" height="150" rx="16" fill="none" stroke="#5e1a3d" stroke-width="1.6" opacity="0.5" transform="rotate(-12 1195 295)" />
+        <rect x="760" y="60" width="80" height="80" rx="8" fill="none" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="5 5" opacity="0.55" />
+        <rect x="360" y="670" width="130" height="130" rx="14" fill="none" stroke="#5e1a3d" stroke-width="1.4" opacity="0.4" transform="rotate(8 425 735)" />
+        <rect x="1240" y="610" width="90" height="90" rx="10" fill="none" stroke="#d4af37" stroke-width="1.4" opacity="0.45" transform="rotate(20 1285 655)" />
       </svg>
     </div>
 
+    <!-- Container do Banner (Fica à Frente das Linhas: z-10) -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
       <div class="w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-300/80 bg-white relative group">
         
-        <!-- Riscos Dourados e Vinho (#5e1a3d) Integrados Dentro da Imagem -->
-        <div class="absolute inset-0 pointer-events-none overflow-hidden z-10">
-          <svg class="absolute inset-0 w-full h-full opacity-45" preserveAspectRatio="none" viewBox="0 0 1200 500">
-            <!-- Riscos Dourados -->
-            <path d="M-60,180 C240,60 420,380 780,210 C1080,50 1180,260 1320,170" fill="none" stroke="#d4af37" stroke-width="2" />
-            <path d="M120,440 C380,310 520,490 840,360 C1080,250 1200,390 1300,320" fill="none" stroke="#d4af37" stroke-width="1.5" />
-            <!-- Riscos Vinho / Padrão A5 (#5e1a3d) -->
-            <path d="M-40,290 C320,170 480,520 880,340 C1180,180 1280,420 1380,290" fill="none" stroke="#5e1a3d" stroke-width="2.2" />
-            <path d="M-20,90 C220,-10 380,220 720,110 C980,10 1100,160 1250,90" fill="none" stroke="#5e1a3d" stroke-width="1.4" stroke-dasharray="5 5" />
-          </svg>
-        </div>
-
         <img id="hero-banner-img"
              src="banner.png"
              alt="Certificado Digital - Sua Identidade Digital no mundo dos negócios - A5 Soluções Digitais"
              class="w-full h-auto object-cover block relative z-0"
              onerror="this.classList.add('hidden'); document.getElementById('hero-banner-fallback').classList.remove('hidden');">
 
-        <!-- Fallback elegante caso a imagem esteja carregando ou ausente -->
+        <!-- Fallback elegante caso a imagem esteja ausente -->
         <div id="hero-banner-fallback" class="hidden relative p-8 sm:p-14 bg-gradient-to-r from-brand-950 via-brand-800 to-brand-700 text-white min-h-[300px] sm:min-h-[380px] flex items-center z-0">
           <div class="relative z-10 max-w-xl space-y-4">
             <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-[11px] font-bold">
@@ -432,16 +370,16 @@
             </p>
           </div>
         </div>
+
       </div>
 
     </div>
   </section>
 
-  <!-- 2. Introdução curta + Planos das Certificações (Logo abaixo do primeiro banner) -->
+  <!-- 2. Introdução curta + Planos das Certificações -->
   <section id="produtos" class="py-14 sm:py-20 relative bg-white border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Fale um pouquinho -->
       <div class="text-center max-w-3xl mx-auto space-y-3 mb-10">
         <span class="text-xs font-bold text-brand-700 uppercase tracking-widest block">Autoridade de Registro Credenciada</span>
         <h2 class="text-2xl sm:text-4xl font-extrabold text-brand-950 tracking-tight font-display">
@@ -498,7 +436,7 @@
           <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div>
               <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Valor Total</span>
-              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 209<span class="text-xs font-normal text-slate-500">,90</span></span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R\$ 209<span class="text-xs font-normal text-slate-500">,90</span></span>
             </div>
             <button onclick="openModal('e-CNPJ A1 (1 Ano)', '209,90')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-md transition-all active:scale-95 whitespace-nowrap text-center">
               Contratar
@@ -538,7 +476,7 @@
           <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div>
               <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Valor Total</span>
-              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 159<span class="text-xs font-normal text-slate-500">,90</span></span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R\$ 159<span class="text-xs font-normal text-slate-500">,90</span></span>
             </div>
             <button onclick="openModal('e-CPF A1 (1 Ano)', '159,90')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
               Contratar
@@ -578,7 +516,7 @@
           <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div>
               <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">A partir de</span>
-              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 39<span class="text-xs font-normal text-slate-500">,90</span></span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R\$ 39<span class="text-xs font-normal text-slate-500">,90</span></span>
             </div>
             <button onclick="openModal('e-CPF Nuvem', '39,90')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
               Contratar
@@ -618,7 +556,7 @@
           <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div>
               <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Valor</span>
-              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 449<span class="text-xs font-normal text-slate-500">,00</span></span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R\$ 449<span class="text-xs font-normal text-slate-500">,00</span></span>
             </div>
             <button onclick="openModal('e-CNPJ A3 com Token (3 Anos)', '449,00')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
               Contratar
@@ -658,7 +596,7 @@
           <div class="pt-6 mt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div>
               <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Valor</span>
-              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R$ 349<span class="text-xs font-normal text-slate-500">,00</span></span>
+              <span class="text-2xl sm:text-3xl font-black text-brand-950 font-display">R\$ 349<span class="text-xs font-normal text-slate-500">,00</span></span>
             </div>
             <button onclick="openModal('e-CPF A3 com Token (3 Anos)', '349,00')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-700 hover:bg-brand-900 text-white font-black text-xs shadow-sm transition-all whitespace-nowrap text-center">
               Contratar
@@ -824,7 +762,7 @@
     </div>
   </section>
 
-  <!-- 6. Avaliações de Satisfação do Google -->
+  <!-- 6. Avaliações de Clientes no Google -->
   <section id="avaliacoes" class="py-16 sm:py-20 bg-white border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
@@ -912,7 +850,7 @@
     </div>
   </section>
 
-  <!-- 7. Quadrante Roxo com Todos os Dados Necessários da Certificação Digital -->
+  <!-- 7. Quadrante Roxo com Dados da Certificação Digital -->
   <section id="credenciamento-iti" class="py-14 sm:py-18 bg-brand-950 border-b border-brand-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
@@ -1048,59 +986,4 @@
           Pedido Rápido
         </span>
         <h3 id="modal-product-title" class="text-xl font-bold text-brand-950 font-display">Certificado Digital</h3>
-        <p class="text-xs text-slate-500">Valor do Certificado: <strong id="modal-product-price" class="text-emerald-600 font-bold text-sm">R$ 209,90</strong></p>
-      </div>
-
-      <div class="space-y-4">
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2.5">
-          <p class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Atendimento comercial direto no WhatsApp com nossa equipe.</span>
-          </p>
-          <p class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Sem solicitação de senhas ou dados bancários aqui.</span>
-          </p>
-          <p class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Agendamento imediato da sua videoconferência.</span>
-          </p>
-        </div>
-
-        <a id="modal-whatsapp-link" 
-           href="https://wa.me/5541998279405?text=Ol%C3%A1!%20Gostaria%20de%20emitir%20meu%20certificado." 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           class="w-full py-4 px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 active:scale-95 transition-all">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.35.49 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.102-.115.434-.506.549-.68.116-.173.232-.144.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.203.043.072.043.419-.101.824z"/>
-          </svg>
-          <span>Concluir Atendimento no WhatsApp</span>
-        </a>
-
-        <button onclick="closeModal()" class="w-full py-2.5 text-xs text-slate-400 hover:text-slate-700 transition-colors">
-          Voltar ao site
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Botão Flutuante do WhatsApp (Sem animação de ping/bolinha piscando) -->
-  <aside aria-label="Atendimento via WhatsApp" class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[60] flex items-center group">
-    <a href="https://wa.me/5541998279405?text=Ol%C3%A1!%20Gostaria%20de%20tirar%20d%C3%BAvidas%20sobre%20os%20certificados%20digitais." 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       aria-label="Falar com a A5 Soluções Digitais no WhatsApp" 
-       class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-xl shadow-emerald-950/25 hover:scale-105 active:scale-95 transition-all">
-      <svg class="w-6 h-6 sm:w-7 sm:h-7 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.35.49 1.199.534 1.286.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.102-.115.434-.506.549-.68.116-.173.232-.144.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.203.043.072.043.419-.101.824z"/>
-      </svg>
-    </a>
-  </aside>
-
-  <script>
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
-  </script>
-</body>
-</html>
+        <p class="text-xs text-slate-500">Valor do Certificado: <strong id="modal-product-price" class="text-emerald-6
